@@ -1,0 +1,4 @@
+<IfModule expires_module>
+	ExpiresActive On
+	ExpiresDefault "access plus 1 days"
+</IfModule>

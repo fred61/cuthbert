@@ -1,6 +1,10 @@
 # cuthbert
-Happy Nest Admin web site V2.0
+Happy Nest projects v2.0
 
-This project aims to reimplement the Happy Nest Admin web site using Angular.
+The site project contains the public facing web site. Originally created in Drupal, I found it easier to reimplement it in JS rather than trying to upgrade from Drupal 6 to Drupal 8.
 
-First attempt was using Angular 1.x, but Angular 2 was released before it was anywhere even near complete. So, onwards and upwards...
+The ui.ng2 project contains the UI part of the admin web site.
+
+The svc.php contains the PHP implementation of the services used by the admin web site. 
+
+Eventually there will be other projects to implement the services part in other technologies (JEE and Spring Boot come to mind).
