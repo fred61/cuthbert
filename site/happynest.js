@@ -45,6 +45,7 @@ setDefaults();
 		opening: 'opening_times.html',
 		playgroup: 'playgroup.html',
 		english: 'english_club.html',
+		englishBeginner: 'english_beginner.html',
 		music: 'music.html',
 		location: 'location.html',
 		fees: 'fees.html',
@@ -59,6 +60,7 @@ setDefaults();
 			opening: {title: 'Opening Times and Holidays'},
 			playgroup: {title: 'Playgroup'},
 			english: {title: 'English Club'},
+			englishBeginner:  {title: "Beginners English", longTitle: "Beginners English - Free Spaces"},
 			music: {title: 'Happy Music'},
 			location: {title: 'Location'},
 			fees: {title: 'Fees'},
@@ -78,6 +80,9 @@ setDefaults();
 			contact: {title: 'Kontakt'},
 		}
 	};
+	
+	// some pages should not show up in the navigation
+	Object.defineProperty(pageTitles.en, 'englishBeginner', {enumerable: false});
 	
 	function currentPage() {
 		return 'pages/' + currentLanguage + '/' + pageContents[currentContent];
