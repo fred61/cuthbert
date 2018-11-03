@@ -1,125 +1,233 @@
+/* TODO px -> em, rem and what have you */
+html {
+    font-size: 12px;
+    max-width: 1440px;
+    max-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
+}
 
 body {
-	font-family: "Helvetica neue", Helvetica, Arial, Verdana, sans-serif;
-	font-size: 14px;
-	background: #fef7e5 linear-gradient(to bottom, #fad994, #fef7e5 50%) no-repeat; 
+    font-family: "Helvetica neue", Helvetica, Arial, Verdana, sans-serif;
+    font-size: 14px;
+    background: #fef7e5 linear-gradient(to bottom, #fad994, #fef7e5 50%) no-repeat;
+    flex: 1 1 auto;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 #site {
-	width: 85%;
-	margin-left: auto;
-	margin-right: auto;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 #header {
-	display: flex;
-	flex-flow: row nowrap;
-	background-image: url(header.png),linear-gradient(to bottom, #ec8d04, #f6c932);
-	background-repeat: no-repeat, repeat-x;
+    flex: 0 0 auto;
+    display: flex;
+    background-image: url(header.png),linear-gradient(to bottom, #ec8d04, #f6c932);
+    background-repeat: no-repeat, repeat-x;
 }
 
-#header div.middle {
-	flex: 1 0 auto;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	margin-left: 6px;
-}
-
-#header div.title {
-	font-size: 30px;
-	font-family: Georgia, Times, serif;
-	color: #ffffff;
+#header div.left {
+    margin-right: 6px;
 }
 
 #header div.right {
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	padding-right: 8px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding-right: 8px;
+}
+
+#header div.title {
+    font-size: 30px;
+    font-family: Georgia, Times, serif;
+    color: #ffffff;
+    flex: 100 0 auto;
+}
+
+#header div.language-links {
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 0 0;
 }
 
 #header div.language-links a {
-	color: #8e6130;
-	vertical-align: middle;
+    color: #8e6130;
+    display: flex;
+    align-items: center;
+    padding-right: 0.33rem;
 }
 
 #header div.language-links img {
-	padding-right: 4px;
+    padding-right: 0.33rem;
+}
+
+#header div.language-links a img {
+    width: 1em;
+    object-fit: fill;
+}
+
+#menubar-container {
+    flex: 0 0 auto;
+    background-color: #000000;
+    color: #ffffff;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+}
+
+#menubar-toggle {
+    display: none;
 }
 
 #menubar {
-	background-color: #000000;
-	color: #ffffff;
-	padding-top: 6px;
-	padding-bottom: 6px;
-	padding-left: 8px;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 #menubar > a {
-	padding-right: 12px;
-	color: inherit;
-	text-decoration: none;
-	font-weight: bold;
+    padding-right: 12px;
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 #menubar > a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #content {
-	background-color: #ffffff;
-	padding: 12px;
-	overflow: auto;
+    flex: 1 1 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 #page {
-	background-color: #fef7e5;
-	border-radius: 10px;
-	padding: 10px;
+    flex: 1 1 auto;
+    overflow: auto;
+    background-color: #fef7e5;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 #page-title {
-	font-size: 18px;
-	font-weight: bold;
-	color: #8e6130;
-	border-bottom: 1px solid grey;
+    font-size: 18px;
+    font-weight: bold;
+    color: #8e6130;
+    border-bottom: 1px solid grey;
 }
 
 #page-content {
-	background: none;
-	overflow: hidden;
+    background: none;
+    overflow: hidden;
 }
 
 #footer {
-	background: #f9d83e linear-gradient(to bottom, #ec9108, #f9d83e 100%) no-repeat; 
-	display: flex;
-	flex-flow: row nowrap;
-	padding: 10px;
+    flex: 0 0 auto;
+    background: #f9d83e linear-gradient(to bottom, #ec9108, #f9d83e 100%) no-repeat; 
+    display: flex;
+    flex-flow: row wrap;
 }
 
 #footer a {
-	color: inherit;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-#footer > div {
-	flex: 1 0 auto;
+    color: inherit;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 #footer div.left {
-	color: #ffffff;
+    flex: 0 0 auto;
+    color: #ffffff;
+    padding: 0.5rem;
 }
 
-#footer div.middle {
-	color: #ffffff;
+#footer div.right {
+    flex: 1 0 auto;
+    color: #ffffff;
+    padding: 0.5rem;
 }
 
 a.language {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 a.language.active {
-	font-weight: bold;
+    font-weight: bold;
+}
+
+/* narrow devices are the special case */
+@media only screen and (max-width: 768px) {
+    #site {
+        width: 95%;
+    }
+
+    #menubar {
+        display: none;
+    }
+
+    #menubar-toggle {
+        display: block;
+    }
+
+    #menubar.visible {
+        display: flex;
+        flex-flow: column nowrap;
+        font-size: 1.25rem;
+        margin-top: 0.333rem;
+        animation: slide 1s linear;
+        overflow: hidden;
+    }
+
+    #menubar.visible a {
+        border-top: 1px solid grey;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        padding-left: 0.5rem;
+    }
+
+    @keyframes slide {
+        from {
+            max-height: 0;
+        }
+
+        to {
+            max-height: 1000px;
+        }
+    }
+}
+
+/* Crest on welcome page */
+div.crest {
+    float: right;
+    margin-left: 1rem;
+}
+
+@media only screen and (max-width: 540px) {
+    /* crest is 300px wide, I want at least 150px extra for text, needs to fit into #site (95%) and withing page padding etc */
+    div.crest {
+        float:none;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Staff page */
+div.staff {
+    overflow: auto;
+}
+
+div.staff div.image {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
 }
