@@ -1,0 +1,247 @@
+<style type="text/css">
+    div.registrationForm {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        grid-column-gap: 0.75rem;
+        column-gap: 0.75rem;
+        grid-row-gap: 0.5rem;
+        row-gap: 0.5rem;
+        --text-input-size: 40ch;
+        --label-column-indent: 0.75rem;
+    }
+    
+    input[type="text"] {
+        width: var(--text-input-size, 40ch);
+    }
+
+    textarea {
+        width: var(--text-input-size, 40ch);
+        resize: none;
+        overflow: hidden;
+    }
+
+    div.sectionTitle {
+        grid-column: span 2;
+        margin-top: 1rem;
+        margin-bottom: 0.33rem;
+        padding-bottom: 0.25rem;
+        box-shadow: 0px 0.167rem 0.167rem #fbc19ecc;
+    }
+
+    div.subsectionTitle {
+        grid-column: span 2;
+        margin-left: var(--label-column-indent)
+    }
+
+    div.labelColumn {
+        margin-left: calc(2 * var(--label-column-indent));
+    }
+
+    div.checkboxRow {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    div.checkboxRow label {
+        flex: 0 0 auto;
+        display: flex;
+        align-content: center;
+        align-items: center;
+    }
+
+    div.checkboxRow div {
+        min-width: 60px;
+    }
+
+    div.buttons {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    #messageContainer {
+        display: none;
+    }
+
+    #thankYouMessage {
+        display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+        div.registrationForm {
+            grid-column-gap: 0.5rem;
+            column-gap: 0.5rem;
+            --label-column-indent: 0.25rem;
+        }
+
+    }
+
+    @media only screen and (max-width: 440px) {
+        div.registrationForm {
+            --text-input-size: 35ch;
+        }
+    }
+
+    @media only screen and (max-width: 375px) {
+        div.registrationForm {
+            --text-input-size: 30ch;
+        }
+    }
+
+</style>
+<script type="text/javascript">
+    (function () {
+        //TODO consider putting these in a jQuery plugin
+
+        function toDOM(element, data) {
+            element
+                .find('[data-item-property]').each(
+                function(){
+                    var propertyName= this.dataset.itemProperty;
+
+                    if ((propertyName !== undefined) && (data.hasOwnProperty(propertyName))) {
+                        if ('value' in this) {
+                            if (this.type === 'checkbox') {
+                                $(this).prop("checked", data[propertyName]);
+                            } else {
+                                $(this).val(data[propertyName]);
+                                $(this).trigger('chosen:updated');
+                            }
+                        } else {
+                            if (this.dataset.itemContent == "html") {
+                                $(this).html(data[propertyName]);
+                            } else {
+                                $(this).text(data[propertyName]);
+                            }
+
+                        }
+                    }
+                });
+
+        }
+
+        function fromDOM(element) {
+            var properties= {};
+            element
+                .find('input[data-item-property],select[data-item-property],textarea[data-item-property]').each(
+                function(){
+                    var value;
+
+                    if (this.type === 'checkbox') {
+                        value= $(this).prop("checked");
+                    } else {
+                        value= $(this).val();
+                    }
+
+                    properties[this.dataset.itemProperty]= value;
+                });
+
+            return properties;
+        }
+
+        function checkInput(registration) {
+            var messages= [];
+
+            if (registration.name == "") {
+                messages.push("Child's name required");
+            }
+            if (registration.dateOfBirth == "") {
+                messages.push("Child's date of birth required");
+            }
+            if (registration.mothersName == "" && registration.mothersEmail == "" && registration.fathersName == "" && registration.fathersEmail == "") {
+                messages.push("At least one name and email required");
+            }
+
+            return messages;
+        }
+
+        function onValidationFail(messages) {
+            $('#validationMessages').empty();
+            messages.forEach(function(message){
+                $('#validationMessages').append($('<li>').text(message));
+            })
+            $('#messageContainer').show();
+            $('#thankYouMessage').hide();
+        }
+
+        function onValidationPass() {
+            $('#messageContainer').hide();
+            $('#thankYouMessage').show();
+        }
+
+        function postRegistration(registration)
+        {
+            console.log("register", registration);
+            //TODO call service
+        }
+
+
+        function onRegister() {
+            var registration= fromDOM($('div.registrationForm'));
+
+            var messages= checkInput(registration);
+
+            if (Array.isArray(messages) && messages.length > 0) {
+                onValidationFail(messages);
+            } else {
+                onValidationPass();
+                postRegistration(registration);
+            }
+        }
+
+        function documentLoadHandler(event) {
+            console.log("doc load", event);
+
+            $('#registerBtn').on('click', onRegister);
+        }
+
+        $(documentLoadHandler);
+    })();
+</script>
+<div id="messageContainer">
+    <ul id="validationMessages">
+
+    </ul>
+</div>
+<div id="thankYouMessage">
+    Thank you for registering - we will be in touch shortly.
+</div>
+<div class="registrationForm">
+    <div class="sectionTitle">Child</div>
+
+    <div class="labelColumn"><label>Name</label></div>
+    <div><input type="text" data-item-property="name"></div>
+
+    <div class="labelColumn"><label>Date of Birth</label></div>
+    <div><input type="date" data-item-property="dateOfBirth"></div>
+
+    <div class="labelColumn">Interested In</div>
+    <div class="checkboxRow">
+        <label><input type="checkbox" data-item-property="regPlaygroup">Playgroup </label>
+        <label><input type="checkbox" data-item-property="regEnglish">English Club</label>
+        <label><input type="checkbox" data-item-property="regMusic">Music</label>
+    </div>
+
+    <div class="sectionTitle">Parents</div>
+
+    <div class="subsectionTitle">Mother</div>
+
+    <div class="labelColumn"><label>Name</label></div>
+    <div><input type="text" data-item-property="mothersName"> </div>
+
+    <div class="labelColumn"><label>Email</label></div>
+    <div><input type="text" data-item-property="mothersEmail"> </div>
+
+    <div class="subsectionTitle">Father</div>
+
+    <div class="labelColumn"><label>Name</label></div>
+    <div><input type="text" data-item-property="fathersName"> </div>
+
+    <div class="labelColumn"><label>Email</label></div>
+    <div><input type="text" data-item-property="fathersEmail"> </div>
+
+</div>
+<div class="buttons">
+    <button id="registerBtn">Register</button>
+</div>

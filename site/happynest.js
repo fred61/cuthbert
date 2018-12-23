@@ -68,7 +68,7 @@ setDefaults();
             conditions: {title: 'Terms & Conditions'},
             staff: {title: 'Staff'},
             contact: {title: 'Contact Us'},
-            registerEC: {title: 'Register', longTitle: 'Beginners English - Register Online'}
+            registerEC: {title: 'Register', longTitle: 'Register Online'}
         },
         
         de: {
