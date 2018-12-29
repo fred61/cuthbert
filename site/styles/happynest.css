@@ -110,6 +110,7 @@ body {
     background-color: #ffffff;
     display: flex;
     flex-flow: column nowrap;
+    overflow-y: auto;
 }
 
 #page {
